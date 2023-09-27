@@ -15,7 +15,7 @@ namespace ToDoList.Controllers
     }
 
     [HttpGet("/items/new")]
-    public ActionResult CreateForm()
+    public ActionResult New()
     {
       return View();
     }
@@ -27,5 +27,19 @@ namespace ToDoList.Controllers
       return RedirectToAction("Index");
     }
 
+    [HttpPost("/items/delete")]
+    public ActionResult DeleteAll()
+    {
+      Item.ClearAll();
+      return View();
+    }
+    
+    [HttpGet("/items/{id}")]
+    //hypothesis: {id} is a placeholder for what ever information that comes in from the @item.Id and can be ANYTHING
+    public ActionResult Show(int id)
+    {
+      Item foundItem = Item.Find(id);
+      return View(foundItem);
+    }
   }
 }
